@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(500).json(err);
+    res.status(502).json(err);
   });
 });
 
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(500).json(err);
+    res.status(502).json(err);
   });
 });
 
@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(404).json(err);
+    res.status(502).json(err);
   });
 });
 
@@ -63,7 +63,7 @@ router.put('/:id', (req, res) => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(404).json(err);
+    res.status(502).json(err);
   });
 });
 
@@ -74,6 +74,9 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   }).then(tagData => {
+    if(!tagData){
+      res.status(404).json({message: 'No Tag found'})
+    }
     res.json(tagData);
   }).catch(err => {
     console.log(err);
