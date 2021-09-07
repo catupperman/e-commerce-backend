@@ -9,13 +9,13 @@ router.get('/', (req, res) => {
   Tag.findAll({
     include: {
       model: Product,
-      attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      //attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }
   }).then(tagData => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(404).json(err);
+    res.status(500).json(err);
   });
 });
 
@@ -28,13 +28,13 @@ router.get('/:id', (req, res) => {
     },
     include: {
       model: Product,
-      attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      //attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }
   }).then(tagData => {
     res.json(tagData);
   }).catch(err => {
     console.log(err);
-    res.status(404).json(err);
+    res.status(500).json(err);
   });
 });
 
@@ -57,6 +57,9 @@ router.put('/:id', (req, res) => {
       id: req.params.id
     }
   }).then(tagData => {
+    if(!tagData){
+      res.status(404).json({message: 'No Tag with that ID'})
+    }
     res.json(tagData);
   }).catch(err => {
     console.log(err);
